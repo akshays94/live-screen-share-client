@@ -31,7 +31,7 @@ async function startCapture(displayMediaOptions) {
   try {
     captureStream = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
   } catch (err) {
-    console.error(`Error: ${err}`);
+    // console.error(`Error: ${err}`);
   }
   return captureStream;
 }
@@ -46,12 +46,12 @@ export default {
     };
   },
   created() {
-    console.log('url', process.env.VUE_APP_SERVER_URL);
+    // console.log('url', process.env.VUE_APP_SERVER_URL);
     this.socket = io(process.env.VUE_APP_SERVER_URL);
   },
   methods: {
     goLive() {
-      console.log('go live');
+      // console.log('go live');
       this.isLive = true;
       startCapture()
         .then((captureStream) => {
