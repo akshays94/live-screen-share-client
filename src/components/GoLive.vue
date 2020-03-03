@@ -1,17 +1,24 @@
 <template>
   <div>
-    <h5>Go Live</h5>
-    <video id="video" src="" ref="myVideo" autoplay></video>
     <div>
-      <input
-        type="text"
-        v-model="videonumber"
-        placeholder="Enter video number">
-      <button @click="!isLive ? goLive() : stopLive()" :disabled="videonumber.trim().length <= 0">
-        <span v-if="!isLive">Go Live</span>
-        <span v-else>Stop broadcasting</span>
-      </button>
+      <div>
+        <span class="p-float-label">
+          <InputText
+            type="text"
+            v-model="videonumber" />
+          <label for="username">Session reference no.</label>
+        </span>
+      </div>
+      <div>
+        <Button
+          @click="!isLive ? goLive() : stopLive()"
+          :disabled="videonumber.trim().length <= 0"
+          :label="!isLive ? `Go Live` : `Stop Live`"
+          class="p-button-raised p-button-rounded"
+          :class="{ 'p-button-danger': isLive }" />
+      </div>
     </div>
+    <video id="video" src="" ref="myVideo" autoplay></video>
     <canvas id="canvas" ref="myCanvas" style="border: 1px solid;"></canvas>
   </div>
 </template>
@@ -39,7 +46,8 @@ export default {
     };
   },
   created() {
-    this.socket = io('localhost:3000');
+    console.log('url', process.env.VUE_APP_SERVER_URL);
+    this.socket = io(process.env.VUE_APP_SERVER_URL);
   },
   methods: {
     goLive() {
@@ -64,7 +72,10 @@ export default {
                 const base64Image = canvas.toDataURL();
                 this.socket
                   .binary(false)
-                  .emit('VIDEO_IS_LIVE', base64Image);
+                  .emit('VIDEO_IS_LIVE', {
+                    base64Image,
+                    videoNumber: this.videonumber,
+                  });
               });
           }, REFRESH_SECS);
         });

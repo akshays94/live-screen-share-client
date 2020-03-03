@@ -1,10 +1,14 @@
 <template>
   <div id="app">
     <h4>Live Screen Share</h4>
-    <hr>
-    <AppGoLive />
-    <hr>
-    <AppJoinLive />
+    <TabView>
+      <TabPanel header="Go Live">
+        <AppGoLive />
+      </TabPanel>
+      <TabPanel header="Join Live Session">
+        <AppJoinLive />
+      </TabPanel>
+    </TabView>
   </div>
 </template>
 
