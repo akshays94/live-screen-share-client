@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "VUE_APP_SERVER_URL": "https://agile-plains-25969.herokuapp.com/"
+    }
+  }
+}
