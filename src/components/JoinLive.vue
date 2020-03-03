@@ -12,7 +12,7 @@
       <Button
         @click="joinSession()"
         :disabled="videonumber.trim().length <= 0"
-        :label="`Join Session`"
+        :label="`Join Session!`"
         class="p-button-raised p-button-rounded"
         :class="{ 'p-button-danger': false }" />
     </div>
